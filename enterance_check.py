@@ -12,16 +12,13 @@ def enterance_check(np):
 	timestamp=mili()
 
 	while (True):
-
-		if( not np.empty() ): # This checks whether there exists a people leaved
-			num_people=np.get()
-
 		if(is_entered):
-			num_people=num_people+1
-			np.put(num_people)
+			np.put(1)
 			# Closing the door code. For temporarily, I used print.
-			print("You passed. The door is closing.")	
+			print("You passed. The door is closing.")
+			break
 		else:
 			if(mili()-timestamp>TIME_LIMIT):
-				np.put(num_people)
 				print("You did not pass. The door is closing")
+				np.put(0)
+				break

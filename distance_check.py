@@ -5,8 +5,8 @@ from constant import TEMP_LIMIT,DISTANCE_MIN,DISTANCE_MAX
 from enterance_check import enterance_check
 import time
 
-def distance_check():
-	
+def distance_check(np):
+
 	while (True):
 		#Here, the distance is measured.
 		#------------------------------------------------------------------
@@ -22,21 +22,22 @@ def distance_check():
 		else:
 			#Here, the temperature is measured.
 			#------------------------------------------------------------------
-			temp=39 ###### This will be changed during demo
+			temp=37 ###### This will be changed during demo
 			#------------------------------------------------------------------
 
 			if(temp>=TEMP_LIMIT): #Fewer case
 
 				print("You have fewer. You cannot pass.")
+				np.put(0)
 				break
 
 			else: #Temperature is fine
 
 				# Opening the door code. For temporarily, I used print.
-				print("You are OK. The door is opening.")	
+				print("You are OK. The door is opening.")
 
 				# Launches isEntered_process. It makes sure that the people entered.
-				isEntered_process = multiprocessing.Process(target=enterance_check(np))
+				isEntered_process = multiprocessing.Process(target=enterance_check, args=(np,))
 				isEntered_process.start()
-
+				isEntered_process.join()
 				break
