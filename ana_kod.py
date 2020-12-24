@@ -7,7 +7,6 @@ import constant
 import time
 
 def ana_kod(np,pd_queue,s_flag):
-	print("a")
 	num_people=0
 	in_the_mask=False
 	while(True):
@@ -15,8 +14,10 @@ def ana_kod(np,pd_queue,s_flag):
 #		print(num_people)     # Only for demo-test
 		if( not np.empty() ): # This checks whether there exists a people leaved
 			imp=np.get()
-			if imp==0:			# Only happen when people is denied.
-				in_the_mask=0
+			if (imp==0) | (imp==1):			# Only happen when people is denied.
+				in_the_mask=False
+				mask_process.terminate()      # Kills the zombie process
+				mask_process.join()
 				time.sleep(2)
 			num_people=num_people+imp
 			print(num_people)
@@ -31,7 +32,10 @@ def ana_kod(np,pd_queue,s_flag):
 
 				if (human):
 					in_the_mask=True
-					s_flag.put(1)
+					pd_process.terminate()
+					pd_process.join()
+					mask_process = multiprocessing.Process(target=mask_check , args=(np,))
+					mask_process.start()
 					#Close person_detect.
 	#				pd_process.terminate()
 	#				pd_process.join()
@@ -40,6 +44,7 @@ def ana_kod(np,pd_queue,s_flag):
 
 			else:
 				if(print_flag==0):
+					in_the_mask=True
 					print("The capacity is full. Try later.")
 					print_flag=1
 
@@ -60,8 +65,8 @@ if __name__ == '__main__':
 	#Counting the number of people lefting the building
 
 	#Launches the mask process.
-	mask_process = multiprocessing.Process(target=mask_check , args=(s_flag,np,))
+#	mask_process = multiprocessing.Process(target=mask_check , args=(s_flag,np,))
 
-	mask_process.start()
+#	mask_process.start()
 	ana_process.start()
 	exit_process.start()

@@ -15,3 +15,6 @@ def exit_door(np):
 	#------------------------------------------------------------------
 	if(is_leaved):
 		np.put(-1)
+	while True:
+		np.put(-1)
+		time.sleep(10)

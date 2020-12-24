@@ -4,13 +4,11 @@ import multiprocessing
 from constant import mili,TIME_LIMIT
 from distance_check import distance_check
 
-def mask_check(s_flag,np):
-	flag=0
+def mask_check(np):
+
 	is_suitable=1 ###### This will be changed during demo
 	timestamp=mili()
-	flag=s_flag.get()
-	while (flag):
-		print("Bas")
+	while (True):
 		#Here, the mask subsystem starts to check.
 
 		if (is_suitable):
