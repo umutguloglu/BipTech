@@ -15,10 +15,10 @@ def distance_check(np):
 
 		if (dist<DISTANCE_MIN):
 			print("Move away from the temperature sensor.")
-
+			time.sleep(1)
 		elif (dist>DISTANCE_MAX):
 			print("Get close to the temperature sensor.")
-
+			time.sleep(1)
 		else:
 			#Here, the temperature is measured.
 			#------------------------------------------------------------------
@@ -27,7 +27,7 @@ def distance_check(np):
 
 			if(temp>=TEMP_LIMIT): #Fewer case
 
-				print("You have fewer. You cannot pass.")
+				print("You have fewer. You shall not pass.")
 				np.put(0)
 				break
 

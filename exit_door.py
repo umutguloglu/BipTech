@@ -11,10 +11,10 @@ def exit_door(np):
 #while(False):
 	#In this part, we calculate whether a person leaved or not.
 	#------------------------------------------------------------------
-	is_leaved=1 #The people is leaved
+	#is_leaved=1 #The people is leaved
 	#------------------------------------------------------------------
-	if(is_leaved):
+#	if(is_leaved):
+#		np.put(-1)
+'''	while True:
 		np.put(-1)
-	while True:
-		np.put(-1)
-		time.sleep(10)
+		time.sleep(2)'''

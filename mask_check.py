@@ -1,13 +1,15 @@
 # Check the mask
 
 import multiprocessing
-from constant import mili,TIME_LIMIT
+from constant import TIME_LIMIT
 from distance_check import distance_check
+from time import perf_counter
 
 def mask_check(np):
 
 	is_suitable=1 ###### This will be changed during demo
-	timestamp=mili()
+	timestamp=perf_counter()
+#	print(timestamp,"tttt")
 	while (True):
 		#Here, the mask subsystem starts to check.
 
@@ -21,12 +23,12 @@ def mask_check(np):
 			break
 
 		else:
-			print("You cannot pass without wearing the mask properly.")
-			if(mili()-timestamp>TIME_LIMIT):
-				print("You did not wear the mask properly. You cannot pass.")
+			print("You shall not pass without wearing the mask properly.")
+			if(perf_counter()-timestamp>TIME_LIMIT):
+				print("You did not wear the mask properly. You shall not pass.")
 				np.put(0)
 				break
+				#----Below part is unnecessary"
 			else:
 				#Time limit is not exceeded. Continue to check the mask
 				pass
-		return

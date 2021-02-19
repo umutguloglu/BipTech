@@ -7,8 +7,9 @@ import constant
 import time
 
 def ana_kod(np,pd_queue,s_flag):
-	num_people=0
+	num_people=5  ### Demo
 	in_the_mask=False
+	print_flag=0
 	while(True):
 #		print(not np.empty())
 #		print(num_people)     # Only for demo-test
@@ -18,9 +19,14 @@ def ana_kod(np,pd_queue,s_flag):
 				in_the_mask=False
 				mask_process.terminate()      # Kills the zombie process
 				mask_process.join()
-				time.sleep(2)
+				time.sleep(1)
 			num_people=num_people+imp
-			print(num_people)
+			if (num_people==constant.CAPACITY-1):
+				in_the_mask=False
+			if(num_people<0):				# Make sure the number inside>=0
+				num_people=0
+			print(num_people,"...")
+#			print(num_people,",",in_the_mask,",",print_flag)
 
 		if(not in_the_mask):
 			if(num_people<constant.CAPACITY):
@@ -28,7 +34,9 @@ def ana_kod(np,pd_queue,s_flag):
 				#Launch pd_process. It tries to detect whether there exists a human or not
 				pd_process = multiprocessing.Process(target=person_detect , args=(pd_queue,))
 				pd_process.start()
+				print("Kimse yok :(")
 				human=pd_queue.get()
+				print("Welcome")
 
 				if (human):
 					in_the_mask=True
@@ -41,16 +49,11 @@ def ana_kod(np,pd_queue,s_flag):
 	#				pd_process.join()
 					#Quit
 	#				break
-
 			else:
 				if(print_flag==0):
 					in_the_mask=True
 					print("The capacity is full. Try later.")
 					print_flag=1
-
-
-
-
 
 if __name__ == '__main__':
 
